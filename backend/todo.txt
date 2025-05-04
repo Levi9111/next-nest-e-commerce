@@ -1,0 +1,3 @@
+1. after the project is complete compare it to v2-express-mongoose-app fur further development
+2. implement cloudinary img url generation
+3. the response message should be clearer like v2
