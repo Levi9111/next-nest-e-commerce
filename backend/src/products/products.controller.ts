@@ -19,12 +19,16 @@ import {
   UpdateProductSchema,
 } from './dtos/update-product.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { RolesGuard } from 'src/common/guards/roles.guard';
+import { Roles } from 'src/common/decorators/roles.decorator';
+import { Role } from 'src/common/enums/role.enum';
 
 @Controller('products')
 export class ProductsController {
   constructor(private readonly productService: ProductsService) {}
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.SELLER, Role.ADMIN)
   @Post()
   create(
     @Body(new ZodValidationPipe(CreateProductSchema)) body: CreateProductDto,
@@ -53,6 +57,8 @@ export class ProductsController {
   }
 
   //   TODO: implement soft delete functionality
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.ADMIN)
   @Delete('id')
   async remove(@Param('id') id: string) {
     const deleted = await this.productService.delete(id);

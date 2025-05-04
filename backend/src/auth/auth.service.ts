@@ -29,6 +29,7 @@ export class AuthService {
 
     // TODO: apply env variable here '10'
     const hashedPassword = await bcrypt.hash(data.password, 10);
+
     const user = await this.userModel.create({
       ...data,
       password: hashedPassword,
