@@ -12,7 +12,8 @@ export class PaymentsController {
 
   @Post('checkout')
   @UsePipes(new ZodValidationPipe(createCheckoutSchema))
-  createCheckout(@Body() dto: createCheckoutDto) {
-    return this.paymentService.createCheckoutSession(dto);
+  createCheckout(@Body() body: createCheckoutDto) {
+    console.log(body);
+    return this.paymentService.createCheckoutSession(body);
   }
 }
